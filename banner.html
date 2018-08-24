@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>XMbanner</title>
+    <script src="animate.js"></script>
+</head>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+    div{
+        width: 1226px;
+        height: 460px;
+        margin: 50px auto;
+        background: #f0f0f0;
+        position: relative;
+    }
+    .ul1{
+        width: 100%;
+        height: 100%;
+        position: relative;
+        overflow: hidden;
+    }
+    header{
+        width: 40px;
+        height: 70px;
+        background: rgba(0,0,0,0.01);
+        position: absolute;
+        left:0;
+        top:0;
+        bottom:0;
+        margin-bottom: auto;
+        margin-top: auto;
+        z-index: 30;
+    }
+    header:hover{
+        background: #9c9c9c;
+    }
+    main{
+        width: 40px;
+        height: 70px;
+        background: rgba(0,0,0,0.01);
+        position: absolute;
+        right:0;
+        top:0;
+        bottom:0;
+        margin-bottom: auto;
+        margin-top: auto;
+        z-index: 30;
+    }
+    main:hover{
+        background: #9c9c9c;
+    }
+    .ul1 li{
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left:1226px;
+        top:0;
+    }
+    .ul1 li:first-child{
+        left:0;
+    }
+    img{
+        display: block;
+        width: 100%;
+    }
+    .ul2{
+        width: 180px;
+        height: 20px;
+        /*background: #83c44e;*/
+        z-index: 30;
+        position: relative;
+        right:0;
+        left:0;
+        bottom:40px;
+        margin-left: auto;
+        margin-right: auto;
+        display: flex;
+        justify-content: space-between;
+    }
+    .ul2 li{
+        width: 20px;
+        height: 20px;
+        /*background: #83c44e;*/
+        border-radius: 50%;
+        border: 3px solid #000000;
+        box-sizing: border-box;
+    }
+    .hot{
+        background: #ff6700;
+    }
+</style>
+<body>
+<div>
+    <ul class="ul1">
+        <li><img src="img/xmad_1532916336989_qCPYb.jpg" alt=""></li>
+        <li><img src="img/xmad_15283412774873_ZVbXJ.jpg" alt=""></li>
+        <li><img src="img/xmad_15329204708304_QBKmj.jpg" alt=""></li>
+        <li><img src="img/xmad_15326858512987_raizB.jpg" alt=""></li>
+        <li><img src="img/xmad_15293778746586_GELFY.jpg" alt=""></li>
+    </ul>
+    <header></header>
+    <main></main>
+    <ul class="ul2">
+        <li class="hot"></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</div>
+<script src="animate.js"></script>
+</body>
+</html>
+<script>
+    window.onload=function () {
+        //获取img
+        let ul1=document.getElementsByClassName("ul1")[0];
+        let lists1=ul1.getElementsByTagName("li");
+        console.log(lists1);
+        //获取前后按钮
+        let left=document.getElementsByTagName("header")[0];
+        let right=document.getElementsByTagName("main")[0];
+        console.log(left, right);
+        //获取点
+        let ul2=document.getElementsByClassName("ul2")[0];
+        let lists2=ul2.getElementsByTagName("li");
+        console.log(ul2, lists2);
+        
+        // let t=setInterval(fn,1000);
+        let now=next=0;
+
+        // ul1.onmouseenter=function () {
+        //     clearInterval(t);
+        // }
+        // ul1.onmouseleave=function () {
+        //     t=setInterval(fn,1000);
+        // }
+        function fn() {
+            next++;
+            if(next==lists1.length){
+                next=0;
+            }
+            for (i=0;i<lists1.length;i++){
+                lists2[i].style.background="";
+                lists2[i].className="";
+            }
+            lists1[next].style.left="1226px";
+            animate (lists1[now],{left:-1226});
+            animate (lists1[next],{left:0});
+            lists2[next].style.background="#ff6700";
+            lists2[next].className="hot";
+            now=next;
+        }
+        function fnL() {
+            next--;
+            if(next<0){
+                next=lists1.length-1;
+            }
+            for (i=0;i<lists1.length;i++){
+                lists2[i].style.background="";
+                lists2[i].className="";
+            }
+            lists1[next].style.left="1226px";
+            animate (lists1[now],{left:-1226});
+            animate (lists1[next],{left:0});
+            lists2[next].style.background="#ff6700";
+            lists2[next].className="hot";
+            now=next;
+        }
+        left.onclick=function () {
+            fnL();
+        }
+        right.onclick=function () {
+            fn();
+        }
+        for (let i=0;i<lists2.length;i++){
+            lists2[i].onclick=function () {
+                for (let j=0;j<lists1.lrngth;j++){
+                    lists1[j].style.left="1226px";
+                    lists2[j].style.background="#fff";
+                }
+                lists1[i].style.left="0";
+                lists2[i].style.background="#ff6700";
+            }
+            now=i;
+        }
+
+
+        
+        
+
+    }
+</script>
