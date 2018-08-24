@@ -121,6 +121,7 @@
 </html>
 <script>
     window.onload=function () {
+        let div=document.getElementsByTagName("div")[0];
         //获取img
         let ul1=document.getElementsByClassName("ul1")[0];
         let lists1=ul1.getElementsByTagName("li");
@@ -130,19 +131,20 @@
         let right=document.getElementsByTagName("main")[0];
         console.log(left, right);
         //获取点
-        let ul2=document.getElementsByClassName("ul2")[0];
-        let lists2=ul2.getElementsByTagName("li");
-        console.log(ul2, lists2);
+        // let ul2=document.getElementsByClassName("ul2")[0];
+        let lists2=document.querySelectorAll(".ul2 li");
+        console.log( lists2);
         
-        let t=setInterval(fn,1000);
+        // let t=setInterval(fn,1000);
         let now=next=0;
+        let flag=true;
 
-        ul1.onmouseenter=function () {
-            clearInterval(t);
-        }
-        ul1.onmouseleave=function () {
-            t=setInterval(fn,1000);
-        }
+        // div.onmouseenter=function () {
+        //     clearInterval(t);
+        // }
+        // div.onmouseleave=function () {
+        //     t=setInterval(fn,1000);
+        // }
         function fn() {
             next++;
             if(next==lists1.length){
@@ -154,7 +156,9 @@
             }
             lists1[next].style.left="1226px";
             animate (lists1[now],{left:-1226});
-            animate (lists1[next],{left:0});
+            animate (lists1[next],{left:0},function () {
+                flag=true;
+            });
             lists2[next].style.background="#ff6700";
             lists2[next].className="hot";
             now=next;
@@ -168,34 +172,59 @@
                 lists2[i].style.background="";
                 lists2[i].className="";
             }
-            lists1[next].style.left="1226px";
-            animate (lists1[now],{left:-1226});
-            animate (lists1[next],{left:0});
+            lists1[next].style.left="-1226px";
+            animate (lists1[now],{left:1226});
+            animate (lists1[next],{left:0},function () {
+                flag=true;
+            });
             lists2[next].style.background="#ff6700";
             lists2[next].className="hot";
             now=next;
         }
         left.onclick=function () {
+            if(flag==false){
+                return;
+            }
+            if(next==0){
+                return;
+            }
+            flag=false;
             fnL();
+
         }
         right.onclick=function () {
+            if(flag==false){
+                return;
+            }
+            if(next==lists1.length-1){
+                return;
+            }
+            flag=false;
             fn();
+
+
         }
-        // for (let i=0;i<lists2.length;i++){
-        //     lists2[i].onclick=function () {
-        //         for (let j=0;j<lists1.lrngth;j++){
-        //             lists1[j].style.left="1226px";
-        //             lists2[j].style.background="#fff";
-        //         }
-        //         lists1[i].style.left="0";
-        //         lists2[i].style.background="#ff6700";
-        //     }
-        //     now=i;
-        // }
-
-
-        
-        
-
+        lists2.forEach(function (v,i) {
+            v.onclick=function () {
+                if(now==i){
+                    return;
+                }else if(now<i){
+                    lists1[i].style.left="1226px";
+                    animate(lists1[now],{left:-1226});
+                    animate(lists1[i],{left:0});
+                    lists2[now].style.background="";
+                    lists2[now].className="";
+                    lists2[i].className="hot";
+                }else{
+                    lists1[i].style.left="-1226px";
+                    animate(lists1[now],{left:1226});
+                    animate(lists1[i],{left:0});
+                    lists2[now].style.background="";
+                    lists2[now].className="";
+                    lists2[i].className="hot";
+                }
+                now=next=i;
+            }
+        })
     }
 </script>
