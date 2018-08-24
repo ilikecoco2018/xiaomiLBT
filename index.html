@@ -134,15 +134,15 @@
         let lists2=ul2.getElementsByTagName("li");
         console.log(ul2, lists2);
         
-        // let t=setInterval(fn,1000);
+        let t=setInterval(fn,1000);
         let now=next=0;
 
-        // ul1.onmouseenter=function () {
-        //     clearInterval(t);
-        // }
-        // ul1.onmouseleave=function () {
-        //     t=setInterval(fn,1000);
-        // }
+        ul1.onmouseenter=function () {
+            clearInterval(t);
+        }
+        ul1.onmouseleave=function () {
+            t=setInterval(fn,1000);
+        }
         function fn() {
             next++;
             if(next==lists1.length){
@@ -181,17 +181,17 @@
         right.onclick=function () {
             fn();
         }
-        for (let i=0;i<lists2.length;i++){
-            lists2[i].onclick=function () {
-                for (let j=0;j<lists1.lrngth;j++){
-                    lists1[j].style.left="1226px";
-                    lists2[j].style.background="#fff";
-                }
-                lists1[i].style.left="0";
-                lists2[i].style.background="#ff6700";
-            }
-            now=i;
-        }
+        // for (let i=0;i<lists2.length;i++){
+        //     lists2[i].onclick=function () {
+        //         for (let j=0;j<lists1.lrngth;j++){
+        //             lists1[j].style.left="1226px";
+        //             lists2[j].style.background="#fff";
+        //         }
+        //         lists1[i].style.left="0";
+        //         lists2[i].style.background="#ff6700";
+        //     }
+        //     now=i;
+        // }
 
 
         
